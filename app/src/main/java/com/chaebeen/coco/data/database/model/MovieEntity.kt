@@ -6,8 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "movie")
 data class MovieEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
     val title: String,
     @ColumnInfo(name = "poster_url")
     val posterUrl: String
@@ -24,5 +22,7 @@ data class MovieEntity(
     @ColumnInfo(name = "updated_at")
     val updatedAt: Long
     */
-)
+) {
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
+}
 

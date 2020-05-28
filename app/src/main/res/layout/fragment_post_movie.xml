@@ -25,7 +25,7 @@
             android:id="@+id/postmovie_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="32dp"
             android:text="제목"
             app:layout_constraintStart_toStartOf="@+id/postmovie_title"
             app:layout_constraintTop_toBottomOf="@+id/postmovie_poster_img" />
