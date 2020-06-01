@@ -2,11 +2,16 @@ package com.chaebeen.coco.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
+import com.bumptech.glide.GlideContext
+import com.bumptech.glide.RequestManager
 import com.chaebeen.coco.R
 import com.chaebeen.coco.databinding.ActivityMainBinding
 import com.chaebeen.coco.ui.all.AllFragment
 import com.chaebeen.coco.ui.book.BookFragment
+import com.chaebeen.coco.ui.calendar.CalendarFragment
 import com.chaebeen.coco.ui.movie.MovieFragment
 
 class MainActivity : AppCompatActivity() {
@@ -22,9 +27,9 @@ class MainActivity : AppCompatActivity() {
         )
         binding.lifecycleOwner = this
 
-        binding.mainAllNavBtn.setOnClickListener {
+        binding.mainCalendarNavBtn.setOnClickListener {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
-                AllFragment()
+                CalendarFragment()
             ).commit()
         }
         binding.mainBookNavBtn.setOnClickListener {
@@ -45,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             val consumed = (it as? OnBackPressedListener)?.onBackPressed() == true
 
             if(!consumed) {
+              //  Log.d("coco-dev",it.tag)
                 supportFragmentManager.beginTransaction().remove(it).commit()
                 return
             }

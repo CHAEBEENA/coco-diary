@@ -13,12 +13,13 @@
             android:id="@+id/main_movie_nav_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="216dp"
+            android:layout_marginEnd="100dp"
             android:text="MOVIE"
             android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/main_book_nav_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/main_book_nav_btn"
+            />
 
         <TextView
             android:id="@+id/main_book_nav_btn"
@@ -29,18 +30,19 @@
             android:padding="16dp"
             android:text="BOOK"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_movie_nav_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/main_calendar_nav_btn" />
 
         <TextView
-            android:id="@+id/main_all_nav_btn"
+            android:id="@+id/main_calendar_nav_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="100dp"
+            android:layout_marginTop="216dp"
             android:padding="16dp"
-            android:text="ALL"
-            app:layout_constraintBottom_toBottomOf="@+id/main_book_nav_btn"
+            android:text="CALENDAR"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/main_book_nav_btn" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+             />
 
         <FrameLayout
             android:id="@+id/fragment_container"

@@ -4,49 +4,40 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.chaebeen.coco.R
 import com.chaebeen.coco.data.database.model.MovieEntity
-import com.chaebeen.coco.databinding.FragmentPostMovieBinding
+import com.chaebeen.coco.databinding.ActivityPostMovieBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
-class PostMovieFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = PostMovieFragment()
-    }
+class PostMovieActivity : AppCompatActivity() {
 
     var PICK_IMAGE_FROM_ALBUM = 0
 
     var photoUri : Uri? = null
 
-    private lateinit var binding: FragmentPostMovieBinding
+    lateinit var binding: ActivityPostMovieBinding
 
     private val viewModel: PostMovieViewModel by viewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentPostMovieBinding.inflate(inflater, container, false).apply {
-            lifecycleOwner = viewLifecycleOwner
-        }
-        return binding.root
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //setContentView(R.layout.activity_post_movie)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        binding = DataBindingUtil.setContentView<ActivityPostMovieBinding>(
+            this,
+            R.layout.activity_post_movie
+        )
+        binding.lifecycleOwner = this
 
         binding.postmoviePosterImg.setOnClickListener {
             //Open the album
             var photoPickerIntent = Intent(Intent.ACTION_PICK)
             photoPickerIntent.type = "image/*"
-            startActivityForResult(photoPickerIntent,PICK_IMAGE_FROM_ALBUM)
+            startActivityForResult(photoPickerIntent, PICK_IMAGE_FROM_ALBUM)
         }
 
         binding.postmovieCompleteBtn.setOnClickListener {
@@ -64,15 +55,16 @@ class PostMovieFragment : Fragment() {
                 //binding.postmoviePosterImg.setImageURI(photoUri)
             } else {
                 //취소버튼 눌렀을때
-
             }
         }
     }
 
     fun contentUpload() {
-        Toast.makeText(requireContext(), "upload success", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "upload success", Toast.LENGTH_LONG).show()
         var movieItem = MovieEntity(binding.postmovieTitle.text.toString(), photoUri.toString())
         viewModel.insertMovie(movieItem)
+
+        finish()
 /*
         childFragmentManager.apply {
             beginTransaction().remove(this@PostMovieFragment).commit()
@@ -80,5 +72,6 @@ class PostMovieFragment : Fragment() {
         }
         */
     }
+
 
 }

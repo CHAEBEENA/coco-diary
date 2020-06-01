@@ -1,13 +1,17 @@
 package com.chaebeen.coco.ui.movie
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import com.chaebeen.coco.R
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.chaebeen.coco.databinding.FragmentDetailMovieBinding
+import com.chaebeen.coco.ui.main.OnBackPressedListener
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailMovieFragment : Fragment() {
 
@@ -15,19 +19,38 @@ class DetailMovieFragment : Fragment() {
         fun newInstance() = DetailMovieFragment()
     }
 
-    private lateinit var viewModel: DetailMovieViewModel
+    private val viewModel: DetailMovieViewModel by viewModel()
+
+    private val movieViewModel: MovieViewModel by inject()
+
+    private lateinit var binding: FragmentDetailMovieBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_detail_movie, container, false)
+        binding = FragmentDetailMovieBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = viewLifecycleOwner
+        }
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(DetailMovieViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        movieViewModel.movieItem.observe(viewLifecycleOwner, Observer {
+            binding.detailmovieTitle.text = it.title
+            Glide.with(requireContext()).load(it.posterUrl).centerCrop().into(binding.detailmoviePoster)
+            viewModel.getItem(it)
+        })
+
+        binding.detailmovieDelete.setOnClickListener {
+            viewModel.currentItem.value?.let {
+                Toast.makeText(requireContext(), "Delete Movie",Toast.LENGTH_SHORT).show()
+                movieViewModel.delete(it)
+                (requireParentFragment() as? OnBackPressedListener)?.onBackPressed()
+            }
+        }
     }
 
 }

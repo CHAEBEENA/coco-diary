@@ -1,5 +1,6 @@
 package com.chaebeen.coco.data.database.dao
 
+import android.graphics.Movie
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.chaebeen.coco.data.database.model.MovieEntity
@@ -17,4 +18,10 @@ interface MovieDao {
 
     @Delete
     suspend fun delete(movie: MovieEntity)
+
+    @Query("DELETE FROM movie")
+    suspend fun delete()
+
+    @Query("SELECT * FROM movie WHERE id=:movieId")
+    suspend fun select(movieId: Int): MovieEntity
 }
