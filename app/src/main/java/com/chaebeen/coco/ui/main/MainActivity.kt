@@ -12,6 +12,7 @@ import com.chaebeen.coco.databinding.ActivityMainBinding
 import com.chaebeen.coco.ui.all.AllFragment
 import com.chaebeen.coco.ui.book.BookFragment
 import com.chaebeen.coco.ui.calendar.CalendarFragment
+import com.chaebeen.coco.ui.calendar.ScrollCalendarFragment
 import com.chaebeen.coco.ui.movie.MovieFragment
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +41,11 @@ class MainActivity : AppCompatActivity() {
         binding.mainMovieNavBtn.setOnClickListener {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
                 MovieFragment()
+            ).commit()
+        }
+        binding.mainScrollCalendarNavBtn.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+                ScrollCalendarFragment()
             ).commit()
         }
 

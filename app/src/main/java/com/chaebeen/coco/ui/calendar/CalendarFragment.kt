@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_calendar.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CalendarFragment : Fragment() {
+class CalendarFragment : Fragment(), OnCalendarClickedListener {
 
     companion object {
         fun newInstance() = CalendarFragment()
@@ -66,5 +66,13 @@ class CalendarFragment : Fragment() {
         tv_current_month.text = sdf.format(calendar.time)
     }
 
+    override fun onCalendarClicked() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
+
+}
+
+interface OnCalendarClickedListener {
+    fun onCalendarClicked()
 }
