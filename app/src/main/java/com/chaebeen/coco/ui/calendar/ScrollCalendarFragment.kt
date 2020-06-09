@@ -61,6 +61,7 @@ class CustomCalendarAdapter(context: Context) : CalendarViewPagerAdapter(context
     override fun onBindView(view: View, day: Day) {
         if(day.state == DayState.ThisMonth) {
             view.visibility = View.VISIBLE
+            view.text_background.visibility = if(day.isToday) View.VISIBLE else View.GONE
             view.text_day.text = day.calendar.get(Calendar.DAY_OF_MONTH).toString()
             view.view_dot.visibility = if(day.isSelected) View.VISIBLE else View.GONE
         } else {

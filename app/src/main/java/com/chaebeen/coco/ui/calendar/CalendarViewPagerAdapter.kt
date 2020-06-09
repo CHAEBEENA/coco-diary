@@ -47,6 +47,7 @@ open class CalendarViewPagerAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val recyclerView = RecyclerView(context).apply {
+            overScrollMode = View.OVER_SCROLL_NEVER
             layoutManager = GridLayoutManager(context, 7)
             isNestedScrollingEnabled = false
             hasFixedSize()
