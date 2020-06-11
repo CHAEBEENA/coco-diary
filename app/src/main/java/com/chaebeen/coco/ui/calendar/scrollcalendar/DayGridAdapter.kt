@@ -1,4 +1,4 @@
-package com.chaebeen.coco.ui.calendar
+package com.chaebeen.coco.ui.calendar.scrollcalendar
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +12,7 @@ abstract class DayGridAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val weekOfMonth: Int
     private val startDate: Calendar
 
-    var items: List<Day> by Delegates.observable(emptyList()) {_,old,new ->
+    var items: List<Day> by Delegates.observable(emptyList()) { _, old, new ->
         CalendarDiff(old, new).calculateDiff().dispatchUpdatesTo(this)
     }
 
@@ -20,7 +20,7 @@ abstract class DayGridAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.context = context
         this.calendar = calendar
 
-        val start = org.apache.commons.lang3.time.DateUtils.truncate(calendar, Calendar.DAY_OF_MONTH)
+        val start = DateUtils.truncate(calendar, Calendar.DAY_OF_MONTH)
         if(start.get(Calendar.DAY_OF_WEEK) != (startingAt.getDifference() + 1)) {
             start.set(Calendar.DAY_OF_MONTH, if(startingAt.isLessFirstWeek(calendar)) - startingAt.getDifference() else 0)
             start.add(Calendar.DAY_OF_MONTH, -start.get(Calendar.DAY_OF_WEEK) + 1 + startingAt.getDifference())
@@ -62,7 +62,12 @@ abstract class DayGridAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             val isToday = DateUtils.isSameDay(cal, now)
 
-            Day(cal, state, isToday, isSelected)
+            Day(
+                cal,
+                state,
+                isToday,
+                isSelected
+            )
         }
     }
 

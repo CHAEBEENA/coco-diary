@@ -1,4 +1,4 @@
-package com.chaebeen.coco.ui.calendar
+package com.chaebeen.coco.ui.calendar.scrollcalendar
 
 import java.util.*
 

@@ -1,31 +1,27 @@
 package com.chaebeen.coco.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.bumptech.glide.Glide
-import com.bumptech.glide.GlideContext
-import com.bumptech.glide.RequestManager
 import com.chaebeen.coco.R
 import com.chaebeen.coco.databinding.ActivityMainBinding
 import com.chaebeen.coco.ui.add.AddFragment
-import com.chaebeen.coco.ui.all.AllFragment
 import com.chaebeen.coco.ui.book.BookFragment
 import com.chaebeen.coco.ui.calendar.CalendarFragment
-import com.chaebeen.coco.ui.calendar.ScrollCalendarFragment
+import com.chaebeen.coco.ui.calendar.scrollcalendar.ScrollCalendarFragment
 import com.chaebeen.coco.ui.movie.MovieFragment
+import com.chaebeen.coco.ui.setting.SettingFragment
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Log.d("coco-dev","OnCreate")
 
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(this,
             R.layout.activity_main
@@ -57,6 +53,11 @@ class MainActivity : AppCompatActivity() {
                 AddFragment()
             ).commit()
         }
+        binding.mainSettingNavBtn.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+                SettingFragment()
+            ).commit()
+        }
 
     }
 
@@ -75,4 +76,23 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("coco-dev","OnResume")
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("coco-dev","OnPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("coco-dev","OnStop")
+
+    }
+
 }
+
+

@@ -1,6 +1,7 @@
-package com.chaebeen.coco.ui.calendar
+package com.chaebeen.coco.ui.calendar.scrollcalendar
 
 import androidx.recyclerview.widget.DiffUtil
+import com.chaebeen.coco.ui.calendar.scrollcalendar.Day
 
 class CalendarDiff (private val old: List<Day>, private val new: List<Day>) : DiffUtil.Callback() {
 

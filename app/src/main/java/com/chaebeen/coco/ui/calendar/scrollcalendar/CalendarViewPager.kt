@@ -1,11 +1,10 @@
-package com.chaebeen.coco.ui.calendar
+package com.chaebeen.coco.ui.calendar.scrollcalendar
 
 import android.content.Context
 import android.util.AttributeSet
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import java.util.*
-import java.util.jar.Attributes
 
 open class CalendarViewPager(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
 
@@ -22,6 +21,8 @@ open class CalendarViewPager(context: Context, attrs: AttributeSet? = null) : Vi
     }
 
     var onCalendarChangeListener: ((Calendar) -> Unit)? = null
+
+    var onYearMonthChangeListener: ((Calendar) -> Unit)? = null
 
     override fun setAdapter(adapter: PagerAdapter?) {
         super.setAdapter(adapter)
@@ -66,26 +67,10 @@ open class CalendarViewPager(context: Context, attrs: AttributeSet? = null) : Vi
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    fun onYearMonthChanged(year: Int, month: Int) {
+        val calendar = (adapter as? CalendarViewPagerAdapter)?.getCalendar(year, month) ?: return
+        onCalendarChangeListener?.invoke(calendar)
+    }
 
 }
+

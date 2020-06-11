@@ -20,6 +20,10 @@
 
         <activity android:name=".ui.movie.PostMovieActivity"/>
 
+        <activity android:name=".ui.AppLockActivity"/>
+
+        <activity android:name=".ui.setting.ChangePasswordActivity"/>
+
     </application>
 
 </manifest>

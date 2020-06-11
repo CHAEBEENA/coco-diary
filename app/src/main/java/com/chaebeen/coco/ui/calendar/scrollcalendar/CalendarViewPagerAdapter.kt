@@ -1,16 +1,14 @@
-package com.chaebeen.coco.ui.calendar
+package com.chaebeen.coco.ui.calendar.scrollcalendar
 
-import android.app.ActionBar
 import android.content.Context
-import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
-import org.w3c.dom.Text
-import java.time.DayOfWeek
+import org.apache.commons.lang3.time.DateUtils
+import java.time.Month
 import java.util.*
 
 open class CalendarViewPagerAdapter(
@@ -23,7 +21,7 @@ open class CalendarViewPagerAdapter(
         const val MAX_VALUE = 500
     }
 
-    private val baseCalendar: Calendar = org.apache.commons.lang3.time.DateUtils.truncate(base, Calendar.DAY_OF_MONTH).apply {
+    private val baseCalendar: Calendar = DateUtils.truncate(base, Calendar.DAY_OF_MONTH).apply {
         set(Calendar.DAY_OF_MONTH, 1)
         firstDayOfWeek = Calendar.SUNDAY + startingAt.getDifference()
         minimalDaysInFirstWeek = 1
@@ -87,6 +85,13 @@ open class CalendarViewPagerAdapter(
     fun getCalendar(position: Int): Calendar {
         return (baseCalendar.clone() as Calendar).apply {
             add(Calendar.MONTH, position - MAX_VALUE / 2)
+        }
+    }
+
+    open fun getCalendar(year: Int, month: Int): Calendar {
+        return (baseCalendar.clone() as Calendar).apply {
+            set(Calendar.YEAR, year)
+            set(Calendar.MONTH, month)
         }
     }
 
