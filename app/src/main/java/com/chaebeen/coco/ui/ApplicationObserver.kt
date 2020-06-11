@@ -3,12 +3,14 @@ package com.chaebeen.coco.ui
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.chaebeen.coco.data.prefs.PreferenceManager
 
 open class ApplicationObserver(val context: Context) : LifecycleObserver {
+
+    val prefs = PreferenceManager(context)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onForeground() {
@@ -19,7 +21,9 @@ open class ApplicationObserver(val context: Context) : LifecycleObserver {
     open fun onResume() {
         Log.d("coco-dev","APPLICATION ON_RESUME")
         //Toast.makeText(context, "resume", Toast.LENGTH_SHORT).show()
-        context.startActivity(Intent(context, AppLockActivity::class.java))
+        if(prefs.isLock(context)) {
+            context.startActivity(Intent(context, AppLockActivity::class.java))
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)

@@ -17,6 +17,8 @@ class AppLockActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_lock)
 
+        lock_text.text = "비밀번호를 입력하세요"
+
         lock_confirm_btn.setOnClickListener {
             if(prefs.getPassword(this, "password") == lock_edit_text.text.toString()) {
                 finish()
