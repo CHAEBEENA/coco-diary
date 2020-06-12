@@ -11,7 +11,9 @@ import java.util.*
 
 class YearMonthPickerDialog(
     private val context: Context,
-    private val listener: OnYearMonthChangeListener
+    private val listener: OnYearMonthChangeListener,
+    private val year: Int,
+    private val month: Int
 )  {
 
     fun show() {
@@ -25,13 +27,13 @@ class YearMonthPickerDialog(
         view.picker_month.apply {
             minValue = 1
             maxValue = 12
-            value = cal.get(Calendar.MONTH) + 1
+            value = month + 1
         }
 
         view.picker_year.apply {
             minValue = 1980
             maxValue = 2099
-            value = cal.get(Calendar.YEAR)
+            value = year
         }
 
         view.btn_cancel.setOnClickListener {
@@ -39,7 +41,7 @@ class YearMonthPickerDialog(
         }
 
         view.btn_confirm.setOnClickListener {
-            listener.onYearMonthChanged(view.picker_year.value, view.picker_month.value)
+            listener.onYearMonthChanged(view.picker_year.value, view.picker_month.value -1)
             alertDialog.cancel()
         }
 

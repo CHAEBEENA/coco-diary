@@ -39,6 +39,8 @@ open class CalendarViewPagerAdapter(
 
     var onDayLongClickListener: ((Day) -> Boolean)? = null
 
+    var onYearMonthChangeListener: ((Calendar) -> Unit)? = null
+
     override fun isViewFromObject(view: View, `object`: Any): Boolean = (view == `object`)
 
     override fun getCount(): Int = MAX_VALUE

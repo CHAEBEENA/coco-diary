@@ -2,7 +2,6 @@ package com.chaebeen.coco.data.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.lifecycle.MutableLiveData
 
 const val PASSWORD = "password"
 const val IS_LOCK = "isLock"
@@ -10,15 +9,6 @@ const val IS_LOCK = "isLock"
 class PreferenceManager(context: Context) {
 
     val PREFERENCES_NAME = "coco_preference"
-
-    var isLock = MutableLiveData<Boolean>()
-
-    private val password : String = "1234"
-
-
-    init {
-        isLock.postValue(false)
-    }
 
     private fun getPreferences(context: Context) : SharedPreferences {
         return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)

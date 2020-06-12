@@ -2,8 +2,10 @@ package com.chaebeen.coco.ui.calendar.scrollcalendar
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import java.time.Year
 import java.util.*
 
 open class CalendarViewPager(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
@@ -23,6 +25,10 @@ open class CalendarViewPager(context: Context, attrs: AttributeSet? = null) : Vi
     var onCalendarChangeListener: ((Calendar) -> Unit)? = null
 
     var onYearMonthChangeListener: ((Calendar) -> Unit)? = null
+    set(value){
+        field = value
+        (adapter as? CalendarViewPagerAdapter)?.onYearMonthChangeListener = field
+    }
 
     override fun setAdapter(adapter: PagerAdapter?) {
         super.setAdapter(adapter)
@@ -33,6 +39,7 @@ open class CalendarViewPager(context: Context, attrs: AttributeSet? = null) : Vi
             adapter.onDayLongClickListener = this.onDayLongClickedListener
 
             setCurrentItem(CalendarViewPagerAdapter.MAX_VALUE / 2, false)
+            this.addOnPageChangeListener(pageChangeListener)
             this.addOnPageChangeListener(pageChangeListener)
         }
     }
@@ -70,6 +77,13 @@ open class CalendarViewPager(context: Context, attrs: AttributeSet? = null) : Vi
     fun onYearMonthChanged(year: Int, month: Int) {
         val calendar = (adapter as? CalendarViewPagerAdapter)?.getCalendar(year, month) ?: return
         onCalendarChangeListener?.invoke(calendar)
+        val current = Calendar.getInstance()
+        val diff = (year - current.get(Calendar.YEAR)) * 12 + (month - current.get(Calendar.MONTH))
+       // val thisTime = calendar.get(Calendar.YEAR) * 12 + calendar.get(Calendar.MONTH)
+       // val compareTime = cal.get(Calendar.YEAR) * 12 + cal.get(Calendar.MONTH)
+        setCurrentItem(CalendarViewPagerAdapter.MAX_VALUE / 2 + diff, false)
+        Log.d("coco-dev-calendar", "viewpager")
+
     }
 
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.text.format.DateUtils.formatDateTime
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,10 @@ import java.util.*
 class ScrollCalendarFragment : Fragment(), OnYearMonthChangeListener {
 
     private lateinit var calendarAdapter : CustomCalendarAdapter
+
+    private var year : Int = 0
+
+    private var month: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +58,7 @@ class ScrollCalendarFragment : Fragment(), OnYearMonthChangeListener {
 
         text_month.setOnClickListener {
            YearMonthPickerDialog(
-               requireContext(), this
+               requireContext(), this, year, month
            ).show()
         }
 
@@ -61,12 +66,17 @@ class ScrollCalendarFragment : Fragment(), OnYearMonthChangeListener {
     }
 
     private fun setDateHeader(calendar: Calendar) {
+        year = calendar.get(Calendar.YEAR)
+        month = calendar.get(Calendar.MONTH)
         text_month.text = formatDateTime(requireContext(), calendar.timeInMillis,
             DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NO_MONTH_DAY)
+
     }
 
     override fun onYearMonthChanged(year: Int, month: Int) {
-        CalendarViewPager(requireContext()).onYearMonthChanged(year, month)
+       //. CalendarViewPager(requireContext()).onYearMonthChanged(year, month)
+        calendar_view_pager.onYearMonthChanged(year, month)
+        Log.d("coco-dev-calendar","yearmonthlistener")
     }
 
 }

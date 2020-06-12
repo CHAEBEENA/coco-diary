@@ -10,7 +10,7 @@ import com.chaebeen.coco.data.prefs.PreferenceManager
 
 open class ApplicationObserver(val context: Context) : LifecycleObserver {
 
-    val prefs = PreferenceManager(context)
+    private val prefs = PreferenceManager(context)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onForeground() {
